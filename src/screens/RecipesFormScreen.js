@@ -7,12 +7,11 @@ export default function RecipesFormScreen({ route, navigation }) {
     const { recipeToEdit, recipeIndex, onrecipeEdited } = route.params || {};
     const [title, setTitle] = useState(recipeToEdit ? recipeToEdit.title : "");
     const [image, setImage] = useState(recipeToEdit ? recipeToEdit.image : "");
-    const [description, setDescription] = useState(
-        recipeToEdit ? recipeToEdit.description : ""
-    );
+    const [ingredients, setIngredients] = useState(recipeToEdit ? recipeToEdit.ingredients : "");
+    const [instructions, setInstructions] = useState(recipeToEdit ? recipeToEdit.instructions : "");
 
     const saverecipe = async () => {
-        const newrecipe = { title, image, description };
+        const newrecipe = { title, image, ingredients, instructions };
         const existingrecipe = await AsyncStorage.getItem("customrecipes");
         const recipes = existingrecipe ? JSON.parse(existingrecipe) : [];
         try {
@@ -50,9 +49,17 @@ export default function RecipesFormScreen({ route, navigation }) {
                 <Text style={styles.imagePlaceholder}>Upload Image URL</Text>
             )}
             <TextInput
-                placeholder="Description"
-                value={description}
-                onChangeText={setDescription}
+                placeholder="Ingredients list"
+                value={ingredients}
+                onChangeText={setIngredients}
+                multiline={true}
+                numberOfLines={4}
+                style={[styles.input, { height: hp(20), textAlignVertical: "top" }]}
+            />
+            <TextInput
+                placeholder="Instructions"
+                value={instructions}
+                onChangeText={setInstructions}
                 multiline={true}
                 numberOfLines={4}
                 style={[styles.input, { height: hp(20), textAlignVertical: "top" }]}
