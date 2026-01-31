@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, } from "react-native-responsive-screen";
 
 export default function RecipesFormScreen({ route, navigation }) {
-    const { recipeToEdit, recipeIndex, onrecipeEdited } = route.params || {};
+    const { recipeToEdit, recipeIndex, onRecipeEdited } = route.params || {};
     const [title, setTitle] = useState(recipeToEdit ? recipeToEdit.title : "");
     const [image, setImage] = useState(recipeToEdit ? recipeToEdit.image : "");
     const [ingredients, setIngredients] = useState(recipeToEdit ? recipeToEdit.ingredients : "");
@@ -18,7 +18,7 @@ export default function RecipesFormScreen({ route, navigation }) {
             if (recipeToEdit !== undefined) {
                 recipes[recipeIndex] = newrecipe;
                 await AsyncStorage.setItem("customrecipes", JSON.stringify(recipes));
-                if (onrecipeEdited) onrecipeEdited();
+                if (onRecipeEdited) onRecipeEdited();
             } else {
                 recipes.push(newrecipe);
                 await AsyncStorage.setItem("customrecipes", JSON.stringify(recipes));

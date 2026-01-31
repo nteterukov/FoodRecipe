@@ -20,7 +20,7 @@ export default function MyRecipeScreen() {
     const [recipes, setrecipes] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchrecipes = useCallback(() => {
+    const fetchRecipes = useCallback(() => {
         setTimeout(
             async () => {
                 const storedrecipes = await AsyncStorage.getItem("customrecipes");
@@ -32,7 +32,7 @@ export default function MyRecipeScreen() {
     }, []);
 
     useEffect(() => {
-        fetchrecipes();
+        fetchRecipes();
     }, []);
 
     const handleAddrecipe = () => {
@@ -55,7 +55,7 @@ export default function MyRecipeScreen() {
     };
 
     const editrecipe = (recipe, index) => {
-        navigation.navigate("RecipesFormScreen", { recipeToEdit: recipe, recipeIndex: index });
+        navigation.navigate("RecipesFormScreen", { recipeToEdit: recipe, recipeIndex: index, onRecipeEdited: fetchRecipes });
     };
 
     return (
